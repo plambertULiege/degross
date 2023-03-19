@@ -1,0 +1,81 @@
+---
+title: "The *degross* R-package"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The *degross* R-package enables to **estimate a density from** grouped (tabulated) summary statistics evaluated in each of the big bins (or classes) partitioning the support of the variable. These statistics include **class frequencies and central moments of order one up to four**. 
+
+The log-density is modelled using a linear combination of **P-splines** (i.e. penalised B-splines). The
+multinomial log-likelihood involving the frequencies adds up to a roughness penalty based on the differences in the coefficients of neighbouring B-splines and the log of a root-n approximation of the sampling density of the observed vector of central moments in each class. The so-obtained penalized log-likelihood is maximized using the EM algorithm to get an estimate of the spline parameters and, consequently, of the variable density and related quantities such as quantiles, see [Lambert (2023)](http://doi.org/10.1016/j.insmatheco.2022.12.004) for details.
+
+## The *degross* package in action
+
+Let us first simulate data taking the form of a rough histogram involving 3 big bins (or *classes*) with locally observed frequencies and sample moments of orders 1 to 4: 
+
+```{r degross1}
+## Package installation from R-CRAN
+## install.packages("degross")
+## Alternatively, installation from GitHub:
+## install.packages("devtools")
+## devtools::install_github("plambertULiege/degross")
+
+## Package loading
+library(degross)
+
+## Simulate grouped data
+sim = simDegrossData(n=3500, plotting=FALSE,choice=2,J=3)
+```
+The so-created object is a list containing
+
+- the limits of the $J$ bigs bins partitioning the variable support ;
+- the associated frequencies ;
+- a $J\times 4$ matrix with the observed sample central moments :
+
+```{r degross1b}
+sim[3:5]
+```
+Let us create a *degrossData* object from these local summary statistics:
+```{r degross1c}
+## Create a degrossData object
+obj.data = with(sim, degrossData(Big.bins=Big.bins, freq.j=freq.j, m.j=m.j))
+print(obj.data)
+```
+
+Once the *degrossData* object has been created, the estimate of the unknown underlying density can be obtained :
+```{r degross2}
+## Estimate the density underlying the grouped data
+obj.fit = degross(obj.data)
+print(obj.fit)
+````
+
+It can also be plotted and compared to the true density (used to generate the data) :
+```{r degross2b}
+## Plot the estimated density...
+plot(obj.fit)
+## ... and compare it with the ('target') density used to simulate the data
+curve(sim$true.density(x),add=TRUE,col="red",lwd=2)
+legend("topleft",
+       legend=c("Observed freq.","True density","Estimated density"),
+       col=c("grey85","red","black"), lwd=c(10,2,2),
+       lty=c("solid","solid","dashed"), box.lty=0, inset=.02)
+```
+
+## License
+**degross**: Density Estimation from GROuped Summary Statistics. Copyright (C) 2021-2023 Philippe Lambert
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses/.
+
+## References
+[1] Lambert, P. (2023) Nonparametric density estimation and risk quantification from tabulated sample moments. Insurance: Mathematics and Economics, 108: 177-189. [doi:10.1016/j.insmatheco.2022.12.004](http://doi.org/10.1016/j.insmatheco.2022.12.004)
+
+[2] Lambert, P. (2021). Moment-based density and risk estimation from grouped summary statistics. [*arXiv:2107.03883*](https://arxiv.org/abs/2107.03883)
+
+[3] Lambert, P. (2021) R-package *ordgam* - [R-cran](https://CRAN.R-project.org/package=degross) ; GitHub: [plambertULiege/degross](https://github.com/plambertULiege/degross)
