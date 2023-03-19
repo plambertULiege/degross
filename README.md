@@ -157,6 +157,7 @@ Economics, 108: 177-189.
 grouped summary statistics.
 [*arXiv:2107.03883*](https://arxiv.org/abs/2107.03883)
 
-\[3\] Lambert, P. (2021) R-package *degross* -
+\[3\] Lambert, P. (2021) R-package *degross* (**D**ensity
+**E**stimation from **GR**ouped **S**ummary **S**tatistics) -
 [R-cran](https://CRAN.R-project.org/package=degross) ; GitHub:
 [plambertULiege/degross](https://github.com/plambertULiege/degross)
