@@ -149,8 +149,8 @@ with this program. If not, see <https://www.gnu.org/licenses/>.
 ## References
 
 \[1\] Lambert, P. (2023) Nonparametric density estimation and risk
-quantification from tabulated sample moments. Insurance: Mathematics and
-Economics, 108: 177-189.
+quantification from tabulated sample moments. *Insurance: Mathematics and
+Economics*, 108: 177-189.
 [doi:10.1016/j.insmatheco.2022.12.004](http://doi.org/10.1016/j.insmatheco.2022.12.004)
 
 \[2\] Lambert, P. (2021). Moment-based density and risk estimation from
