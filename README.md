@@ -157,6 +157,6 @@ Economics, 108: 177-189.
 grouped summary statistics.
 [*arXiv:2107.03883*](https://arxiv.org/abs/2107.03883)
 
-\[3\] Lambert, P. (2021) R-package *ordgam* -
+\[3\] Lambert, P. (2021) R-package *degross* -
 [R-cran](https://CRAN.R-project.org/package=degross) ; GitHub:
 [plambertULiege/degross](https://github.com/plambertULiege/degross)
