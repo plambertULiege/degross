@@ -128,6 +128,41 @@ legend("topleft",
 
 ![](man/figures/degross2b-1.png)<!-- -->
 
+Quantile estimates directly follow,
+
+``` r
+p = c(.01,.05,seq(.1,.9,by=.1),.95,.99) ## Desired probabilities
+Q.p = qdegross(p,obj.fit) ## Compute the desired quantiles
+print(round(Q.p,3))
+```
+
+    ##  0.01  0.05   0.1   0.2   0.3   0.4   0.5   0.6   0.7   0.8   0.9  0.95  0.99 
+    ## 0.447 0.760 0.989 2.204 3.176 3.459 3.662 3.837 4.003 4.176 4.381 4.528 4.771
+
+… with their credible intervals if requested:
+
+``` r
+Q.p = qdegross(p,obj.fit,get.se=TRUE,cred.level=.90)
+print(round(Q.p,3))
+```
+
+    ##      Estimate  s.e. ci.low ci.up
+    ## 0.01    0.447 0.021  0.413 0.482
+    ## 0.05    0.760 0.017  0.732 0.789
+    ## 0.1     0.989 0.021  0.954 1.023
+    ## 0.2     2.204 0.271  1.759 2.649
+    ## 0.3     3.176 0.028  3.131 3.222
+    ## 0.4     3.459 0.018  3.429 3.488
+    ## 0.5     3.662 0.015  3.637 3.686
+    ## 0.6     3.837 0.013  3.815 3.858
+    ## 0.7     4.003 0.012  3.984 4.023
+    ## 0.8     4.176 0.011  4.158 4.195
+    ## 0.9     4.381 0.011  4.363 4.399
+    ## 0.95    4.528 0.012  4.509 4.548
+    ## 0.99    4.771 0.017  4.743 4.799
+    ## attr(,"cred.level")
+    ## [1] 0.9
+
 ## License
 
 **degross**: Density Estimation from GROuped Summary Statistics.

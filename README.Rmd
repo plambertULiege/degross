@@ -63,6 +63,17 @@ legend("topleft",
        col=c("grey85","red","black"), lwd=c(10,2,2),
        lty=c("solid","solid","dashed"), box.lty=0, inset=.02)
 ```
+Quantile estimates directly follow,
+```{r degross3a}
+p = c(.01,.05,seq(.1,.9,by=.1),.95,.99) ## Desired probabilities
+Q.p = qdegross(p,obj.fit) ## Compute the desired quantiles
+print(round(Q.p,3))
+```
+... with their credible intervals if requested: 
+```{r degross3b}
+Q.p = qdegross(p,obj.fit,get.se=TRUE,cred.level=.90)
+print(round(Q.p,3))
+```
 
 ## License
 **degross**: Density Estimation from GROuped Summary Statistics. Copyright (C) 2021-2023 Philippe Lambert
